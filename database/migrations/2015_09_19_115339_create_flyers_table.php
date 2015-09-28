@@ -21,7 +21,6 @@ class CreateFlyersTable extends Migration
             $table->string('state', 40);
             $table->string('price');
             $table->text('description');
-            $table->string('photo');
             $table->timestamps();
         });
     }
