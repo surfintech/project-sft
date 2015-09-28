@@ -11,7 +11,7 @@ class Photo extends Model
 
     protected $fillable = ['path'];
 
-    protected $baseDir = 'flyers/photos';
+    protected $baseDir = 'images/photos';
     
     public function flyer()
     {
