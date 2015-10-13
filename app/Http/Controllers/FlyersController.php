@@ -1,15 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Flyer;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ChangeFlyerRequest;
-use App\Http\Requests\FlyerRequest;
 use App\Photo;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-//use App\Http\Controllers\Traits\AuthorizesUsers;
+use App\Http\Requests\FlyerRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AddPhotoRequest;
+
+
+
+
+
+
 
 class FlyersController extends Controller
 {
@@ -49,7 +53,8 @@ class FlyersController extends Controller
      */
     public function store(FlyerRequest $request)
     {
-        Flyer::create($request->all());
+
+        Flyer::create($request->all(), Auth::user()->name);
         
         flash()->success('Flyer Created', 'Your flyer has been created.');
        return redirect()->back();
@@ -73,24 +78,14 @@ class FlyersController extends Controller
      * Apply a photo to the referenced flyer
      * @param string  $zip     
      * @param string  $street  
-     * @param ChangeFlyerRequest $request 
+     * @param AddPhotoRequest $request 
      */
-    public function addPhoto($zip, $street, ChangeFlyerRequest $request)
+    public function addPhoto($zip, $street, AddPhotoRequest $request)
     {
-
-
-       $photo = $this->makePhoto($request->file('photo'));
-
-       Flyer::locatedAt($zip, $street)->addPhoto($photo);
-
+        $photo = Photo::fromFile($request->file('photo'));
+        Flyer::locatedAt($zip, $street)->addPhoto($photo);
     }
 
-    protected function makePhoto(UploadedFile $file)
-    {
-
-        return Photo::named($file->getClientOriginalName())
-            ->move($file);
-    }
     /**
      * Show the form for editing the specified resource.
      *

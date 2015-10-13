@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\User;
 class Flyer extends Model
 {
 /**
@@ -15,6 +15,7 @@ class Flyer extends Model
 
 
 	protected $fillable = [
+		'user_id',
 		'street',
 		'city',
 		'state',
