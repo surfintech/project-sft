@@ -42,12 +42,17 @@ class User extends Model implements AuthenticatableContract,
     */
     public function flyers()
     {
-        return $this->hasMany('App\Flyer');
+        return $this->hasMany(Flyer::class);
     }
 
     public function owns($relation)
     {
         return $relation->user_id == $this->id;
+    }
+
+    public function publish(Flyer $flyer)
+    {
+        return $this->flyers()->save($flyer);
     }
 
 }
