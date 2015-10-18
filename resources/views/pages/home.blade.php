@@ -12,7 +12,8 @@
             @if ($signedIn)
             	<a href="/flyers/create" class="btn btn-primary">Create a Flyer</a>
             @else 
-            	<a href="/auth/register" class="btn btn-primary">Sign Up</a>
+            	<a href="/auth/login" class="btn btn-primary">Login</a>
+                <a href="/auth/register" class="btn btn-link">Sign Up</a>
             @endif
 
         </div>
